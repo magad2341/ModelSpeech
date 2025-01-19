@@ -1,13 +1,21 @@
 import gradio as gr
+from gradio_client import Client
 
 
 def greet(text: str) -> str:
-    return text
+    client = Client("wasmdashai/RunTasking")
+    result = client.predict(
+    		text="Hello!!",
+    		name_model="wasmdashai/vits-ar-sa-huba-v2",
+    		speaking_rate=0.8,
+    		api_name="/predict"
+    )
+    return result
 
 
 demo = gr.Interface(
     fn=greet,
     inputs=gr.components.Textbox(label='Input'),
-    outputs=gr.components.Textbox(label='Output'),
+    outputs=["audio"],
     allow_flagging='never'
 )
