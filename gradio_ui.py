@@ -176,4 +176,4 @@ with gr.Blocks() as demo:
             )
 
 # Launch the application
-demo.launch(show_error=True)
+
