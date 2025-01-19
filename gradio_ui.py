@@ -112,8 +112,8 @@ with gr.Blocks() as demo:
             gr.Markdown("### الخيارات")
             category_dropdown = gr.Dropdown(label="الفئة", choices=categories, value="Please Select")
             language_dropdown = gr.Dropdown(label="اللغة", choices=languages, value="Please Select")
-            model_type_dropdown = gr.Dropdown(label="نوع النموذج", choices=model_types, value="Please Select")
-            dialect_dropdown = gr.Dropdown(label="نوع اللهجة", choices=dialects, value="Please Select")
+          #  model_type_dropdown = gr.Dropdown(label="نوع النموذج", choices=model_types, value="Please Select")
+            
             gender_dropdown = gr.Dropdown(label="الجنس", choices=genders, value="Please Select")
             
             gr.Markdown("### الإعدادات")
@@ -124,38 +124,44 @@ with gr.Blocks() as demo:
         with gr.Column(scale=3):
             gr.HTML(bodyicon)  # Display the icon
             out_audio = gr.Audio(label="Output",autoplay=True)
-            model_choices = gr.Dropdown(
-                            choices=[
+            with gr.Row():
+                    dialect_dropdown = gr.Dropdown(label="نوع اللهجة", choices=dialects, value="Please Select")
+                    model_choices = gr.Dropdown(
+                                    choices=[
 
-                                "wasmdashai/vits-ar-sa-huba-v1",
-                                 "wasmdashai/vits-ar-sa-huba-v2",
+                                        "wasmdashai/vits-ar-sa-huba-v1",
+                                        "wasmdashai/vits-ar-sa-huba-v2",
 
-                                 "wasmdashai/vits-ar-sa-A",
-                                "wasmdashai/vits-ar-ye-sa",
-                                "wasmdashai/vits-ar-sa-M-v1",
-                                 "wasmdashai/vits-ar-sa-M-v2",
-                                "wasmdashai/vits-en-v1"
+                                        "wasmdashai/vits-ar-sa-A",
+                                        "wasmdashai/vits-ar-ye-sa",
+                                        "wasmdashai/vits-ar-sa-M-v1",
+                                        "wasmdashai/vits-ar-sa-M-v2",
+                                        "wasmdashai/vits-en-v1"
 
 
-                            ],
-                            label="اختر النموذج",
-                            value="wasmdashai/vits-ar-sa-huba-v2",
-                        )
+                                    ],
+                                    label="اختر النموذج",
+                                    value="wasmdashai/vits-ar-sa-huba-v2",
+                                )
             
-            input_textbox = gr.Textbox(
-                label="Input text",
-                placeholder="تحدث مع AI",
-                lines=10,
-                max_lines=10
-            )
+            # input_textbox = gr.Textbox(
+            #     label="Input text",
+            #     placeholder="تحدث مع AI",
+            #     lines=3,
+            #     max_lines=3
+            # )
+            chat_input = gr.MultimodalTextbox(interactive=True,
+                                          file_count="single",
+                                          placeholder="Enter message or upload file...", show_label=False, lines=3,
+                                           max_lines=3)
             
-            submit_button = gr.Button("Generate Response")
+           # submit_button = gr.Button("Generate Response")
 
             # Connect button to function
-            submit_button.click(
+            chat_input.submit(
                 greet,
                 inputs=[
-                    input_textbox,
+                    chat_input,
                     category_dropdown,
                     language_dropdown,
                     dialect_dropdown,
@@ -168,3 +174,6 @@ with gr.Blocks() as demo:
                 ],
                 outputs=out_audio,
             )
+
+# Launch the application
+demo.launch(show_error=True)
