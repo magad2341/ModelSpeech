@@ -74,7 +74,7 @@ bodyicon = """
     </div>
     </div>
 """
-def  modelspeech(text=TXT,name_model="wasmdashai/vits-ar-sa-huba-v2",speaking_rate=0.8,double_duration=1.0) -> str:
+def  modelspeech(text="",name_model="wasmdashai/vits-ar-sa-huba-v2",speaking_rate=0.8,double_duration=1.0) -> str:
     client = Client("wasmdashai/RunTasking")
     result = client.predict(
     		text=text,
