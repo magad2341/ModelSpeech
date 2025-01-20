@@ -8,7 +8,7 @@ def greet(text: str,key="",category="",language="ar",dialect="SA",max_token=0.8,
     client = Client("wasmdashai/T2T")
     result = client.predict(
         text=text,
-        key=key,
+        key="AIzaSyC85_3TKmiXtOpwybhSFThZdF1nGKlxU5c",
         api_name="/predict"
     )
     return gr.MultimodalTextbox(interactive=True,value=None),result
