@@ -2,6 +2,7 @@ from fastapi import FastAPI
 import gradio as gr
 
 from gradio_ui import demo
+import t2speech
 
 app = FastAPI()
 
@@ -9,9 +10,10 @@ app = FastAPI()
 async def root():
     return 'Gradio app is running at /gradio', 200
 
-app = gr.mount_gradio_app(app, demo, path='/t2s')
+app = gr.mount_gradio_app(app, demo, path='/studio-t2speech')
+app = gr.mount_gradio_app(app, t2speech.demo, path='/t2speech')
 
-app = gr.mount_gradio_app(app, demo, path='/t2t')
+app = gr.mount_gradio_app(app, demo, path='/t2text')
 
 app = gr.mount_gradio_app(app, demo, path='/vbot')
 
