@@ -53,8 +53,8 @@ bodyicon = """
         box-shadow: 0 4px 8px rgba(0, 123, 255, 0.25);
       }
       .icon-xxl {
-        width: 220px;
-        height: 220px;
+        width: 170px;
+        height: 170px;
         line-height: 6.8rem;
         align-items: center;
       }
@@ -80,8 +80,8 @@ bodyicon = """
       }
       .mud-icon-size-large {
         font-size: 4.25rem !important;
-        width: 8.25rem !important;
-        height: 8.25rem !important;
+        width: 7.25rem !important;
+        height: 7.25rem !important;
       }
       .mud-success-text {
         color: rgba(11,186,131,1);
@@ -93,6 +93,17 @@ bodyicon = """
         width: 100%;
         
       }
+      .built-with.svelte-sar7eh.svelte-sar7eh.svelte-sar7eh {
+        display:none !important;
+      }
+     footer.svelte-sar7eh.svelte-sar7eh.svelte-sar7eh {
+    position: fixed;
+    right: 20px;
+    top: 0;
+}
+       .gap.svelte-vt1mxs {
+    gap: 8px !important;
+}
     </style>
     <div class="icon-cont-center  ">
     <div id="logo-icon-static-id" class="icon-xxl text-center shadow-primary rounded-circle flex-shrink-0">
@@ -104,6 +115,7 @@ bodyicon = """
     </div>
     </div>
 """
+users = [("admin", "password123"), ("user", "userpass")]
 
 # Gradio Interface
 with gr.Blocks() as demo:
@@ -174,6 +186,3 @@ with gr.Blocks() as demo:
                 ],
                 outputs=out_audio,
             )
-
-# Launch the application
-
