@@ -4,6 +4,7 @@ import gradio as gr
 from gradio_ui import demo
 import t2speech
 import t2text
+import chatbot
 app = FastAPI()
 
 @app.get('/')
@@ -17,5 +18,5 @@ app = gr.mount_gradio_app(app, t2text.demo, path='/studio-t2text')
 
 app = gr.mount_gradio_app(app, demo, path='/vbot')
 
-app = gr.mount_gradio_app(app, demo, path='/chatbot')
+app = gr.mount_gradio_app(app, chatbot.demo, path='/chatbot')
 
