@@ -147,16 +147,18 @@ users = [("admin", "password123"), ("user", "userpass")]
 with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column(scale=1):
-            gr.Markdown("### الخيارات")
-            category_dropdown = gr.Dropdown(label="الفئة", choices=categories, value="Please Select")
-            language_dropdown = gr.Dropdown(label="اللغة", choices=languages, value="Please Select")
-          #  model_type_dropdown = gr.Dropdown(label="نوع النموذج", choices=model_types, value="Please Select")
+            with gr.Accordion("الخيارات"):
+                  # gr.Markdown("### الخيارات")
+                  category_dropdown = gr.Dropdown(label="الفئة", choices=categories, value="Please Select")
+                  language_dropdown = gr.Dropdown(label="اللغة", choices=languages, value="Please Select")
+                #  model_type_dropdown = gr.Dropdown(label="نوع النموذج", choices=model_types, value="Please Select")
 
-            dialect_dropdown = gr.Dropdown(label="نوع اللهجة", choices=dialects, value="Please Select")
-            gr.Markdown("### الإعدادات")
-            temperature_slider = gr.Slider(label="Temperature", minimum=0.1, maximum=5, step=0.1, value=0.7)
-            speech_rate_slider = gr.Slider(label="Max Token", minimum=50, maximum=120000, step=50, value=1024)
-            streaming_toggle = gr.Checkbox(label="Streaming", value=True)
+                  dialect_dropdown = gr.Dropdown(label="نوع اللهجة", choices=dialects, value="Please Select")
+            with gr.Accordion("الإعدادات"):
+                  # gr.Markdown("### الإعدادات")
+                  temperature_slider = gr.Slider(label="Temperature", minimum=0.1, maximum=5, step=0.1, value=0.7)
+                  speech_rate_slider = gr.Slider(label="Max Token", minimum=50, maximum=120000, step=50, value=1024)
+                  streaming_toggle = gr.Checkbox(label="Streaming", value=True)
 
         with gr.Column(scale=3):
             gr.HTML(bodyicon)  # Display the icon
