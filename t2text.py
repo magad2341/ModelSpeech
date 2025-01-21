@@ -11,7 +11,7 @@ def greet(text: str,key="",category="",language="ar",dialect="SA",max_token=0.8,
         key="AIzaSyC85_3TKmiXtOpwybhSFThZdF1nGKlxU5c",
         api_name="/predict"
     )
-    return gr.MultimodalTextbox(interactive=True,value=None),result
+    return gr.MultimodalTextbox(interactive=True,value=None),result,bodyicon
 
 
 
@@ -116,7 +116,7 @@ with gr.Blocks() as demo:
                 streaming_toggle = gr.Checkbox(label="Streaming", value=True)
 
         with gr.Column(scale=3):
-            gr.HTML(bodyicon)  # Display the icon
+            bd=gr.HTML(bodyicon)  # Display the icon
             out_textbox = gr.Textbox(
                 label="Output",
             #    placeholder="تحدث مع AI",
@@ -148,5 +148,5 @@ with gr.Blocks() as demo:
                     temperature_slider,
                     streaming_toggle,
                 ],
-                outputs=[chat_input,out_textbox],
+                outputs=[chat_input,out_textbox,bd],
             )
