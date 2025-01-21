@@ -12,7 +12,7 @@ def greet(text: str,category="",language="ar",dialect="SA",gender="Male",model_t
     		speaking_rate=speaking_rate,
     		api_name="/predict"
     )
-    return result
+    return result,bodyicon
 
 
 
@@ -134,7 +134,7 @@ with gr.Blocks() as demo:
                 streaming_toggle = gr.Checkbox(label="Streaming", value=True)
         
         with gr.Column(scale=3):
-            gr.HTML(bodyicon)  # Display the icon
+            bd=gr.HTML(bodyicon)  # Display the icon
             out_audio = gr.Audio(label="Output",autoplay=True)
             with gr.Row():
                     dialect_dropdown = gr.Dropdown(label="نوع اللهجة", choices=dialects, value="Please Select")
@@ -184,5 +184,5 @@ with gr.Blocks() as demo:
                     temperature_slider,
                     streaming_toggle,
                 ],
-                outputs=out_audio,
+                outputs=[out_audio,bd],
             )
