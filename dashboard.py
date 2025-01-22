@@ -173,7 +173,7 @@ def create_dashboard(language):
 
     return service_dashboard
 
-# تشغيل الداشبورد مع اللغة العربية أو الإنجليزية
-if __name__ == "__main__":
-    language = "en"  # قم بتغيير اللغة هنا
-    dashboard = create_dashboard(language)
+
+language = "ar"  # قم بتغيير اللغة هنا
+    
+dashboard = create_dashboard(language)
