@@ -75,6 +75,7 @@ bodyicon = """
     </div>
 """
 def  modelspeech(text="",name_model="wasmdashai/vits-ar-sa-huba-v2",speaking_rate=0.8,double_duration=1.0) -> str:
+    
     client = Client("wasmdashai/RunTasking")
     result = client.predict(
     		text=text,
@@ -84,10 +85,21 @@ def  modelspeech(text="",name_model="wasmdashai/vits-ar-sa-huba-v2",speaking_rat
     )
     return bodyicon,result
 
-model_choices = gr.Dropdown(
-                            choices=[
+def  cheack_token(token_auth=""):
+    
+     return True 
+def load_model(request: gr.Request):
+    
+    if request:
+       
+       
+       data=dict(request.query_params)
+       if cheack_token(data["token"]):
+              try:
+                  return data["name_model"],gr.update(
+                                    choices=[
 
-                                "wasmdashai/vits-ar-sa-huba-v1",
+                                       "wasmdashai/vits-ar-sa-huba-v1",
                                  "wasmdashai/vits-ar-sa-huba-v2",
 
                                  "wasmdashai/vits-ar-sa-A",
@@ -96,10 +108,29 @@ model_choices = gr.Dropdown(
                                  "wasmdashai/vits-ar-sa-M-v2",
                                 "wasmdashai/vits-en-v1"
 
+                                        
 
-                            ],
-                            label="اختر النموذج",
-                            value="wasmdashai/vits-ar-sa-huba-v2",
+
+                                    ],
+                                    label="اختر النموذج",
+                                    value="wasmdashai/vits-ar-sa-huba-v2",
+                                )
+              except: pass
+
+       return "",gr.update(
+                            choices=None
                         )
-demo = gr.Interface(fn=modelspeech, inputs=["text",model_choices,gr.Slider(0.1, 1, step=0.1,value=0.8),gr.Slider(0.1, 5, step=0.1,value=1.0)], outputs=[ gr.HTML(bodyicon),gr.Audio(streaming=True, autoplay=True)], allow_flagging='never')
+    
 
+with gr.Blocks() as demo:
+    model_choices = gr.Dropdown(
+                            choices=None
+
+                                
+                            
+                           
+                        )
+    state=gr.State("")
+
+    interf = gr.Interface(fn=modelspeech, inputs=["text",model_choices,gr.Slider(0.1, 1, step=0.1,value=0.8),gr.Slider(0.1, 5, step=0.1,value=1.0)], outputs=[ gr.HTML(bodyicon),gr.Audio(streaming=True, autoplay=True)], allow_flagging='never')
+    demo.load(fn=load_model,inputs=None,outputs=[state,model_choices])
