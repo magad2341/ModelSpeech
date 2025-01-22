@@ -82,7 +82,8 @@ translations = {
         "4h": "4 ساعات",
         "1d": "يوم",
         "requests_by_service": "الطلبات حسب نوع الخدمة",
-        "errors_by_service": "الأخطاء حسب نوع الخدمة"
+        "errors_by_service": "الأخطاء حسب نوع الخدمة",
+        "PlanRequestsVisualization":"أحصائية الخطة "
     },
     "en": {
         "start_date": "Start Date",
@@ -101,7 +102,8 @@ translations = {
         "4h": "4 hours",
         "1d": "1 day",
         "requests_by_service": "Requests by Service Type",
-        "errors_by_service": "Errors by Service Type"
+        "errors_by_service": "Errors by Service Type",
+        "PlanRequestsVisualization": "Plan  Visualization"
     }
 }
 def plot_plan_data():
@@ -165,11 +167,21 @@ def create_dashboard(language):
 
         # language_selector = gr.Radio(["en", "ar"], value=language, label="Select Language")
         # language_selector.change(change_language, language_selector, service_dashboard)
-        with gr.Column():
-                gr.Markdown("## Plan Requests Visualization")
-                with gr.Row():
-                      gr.Plot(plot_plan_data_services)
-                      gr.Plot(plot_plan_data)
+        with gr.Accordion(labels["PlanRequestsVisualization"]) as panel0:
+            #  gr.Markdown("## Plan Requests Visualization")     
+              with gr.Row():
+                  
+                  with  gr.Column(scale=1):
+                      with gr.Column():   
+                            gr.Plot(plot_plan_data_services)
+                          
+
+                  with gr.Column(scale=1):
+                      with gr.Column():   
+                            gr.Plot(plot_plan_data)
+                  with gr.Column(scale=1):
+                        gr.Plot(plot_plan_data)
+                 
         with gr.Accordion(labels["apply_btn"]) as panel1:
             with gr.Row():
                 start = gr.DateTime("2025-01-01 00:00:00", label=labels["start_date"])
@@ -247,4 +259,3 @@ def create_dashboard(language):
 
 language = "ar"  # قم بتغيير اللغة هنا
 dashboard = create_dashboard(language)
-
