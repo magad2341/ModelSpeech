@@ -116,7 +116,8 @@ def plot_plan_data():
         values=values,
         title="Plan Requests Distribution",
         hole=0.4,  # مخطط دائري مجوف
-        color_discrete_sequence=["rgba(11, 186, 131, 1)", "#99CCFF"]
+        color_discrete_sequence=["rgba(11, 186, 131, 1)", "#99CCFF"],
+        height=300,
     )
     fig.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',  # خلفية الورقة
@@ -135,7 +136,8 @@ def plot_plan_data_services():
         values=values,
         title="Service Usage and Status",
         hole=0.4,  # مخطط دائري مجوف
-        color_discrete_sequence=["rgba(11, 186, 131, 1)", "#99CCFF","#559CCF"]
+        color_discrete_sequence=["rgba(11, 186, 131, 1)", "#99CCFF","#559CCF"],
+        height=300,
     )
     fig.update_layout(
         paper_bgcolor='rgba(0,0,0,0)',  # خلفية الورقة
