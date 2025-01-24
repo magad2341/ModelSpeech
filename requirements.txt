@@ -2,3 +2,5 @@ fastapi[all]
 gradio_client
 gradio==5.12.0
 plotly
+sqlalchemy 
+psycopg2
