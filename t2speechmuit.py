@@ -131,7 +131,7 @@ with gr.Blocks() as demo:
         
                     dialect_dropdown = gr.Dropdown(label="نوع اللهجة", choices=dialects, value="Please Select")
     with gr.Row():
-             gr.Dataframe( headers=["Model", "Audio","View","Description"],
+             gr.Dataframe( headers=["Model", "Audio","View"],
                            value=generate_table(),
                                     interactive=False,
                                     datatype="markdown",
