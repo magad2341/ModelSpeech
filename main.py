@@ -7,6 +7,7 @@ import t2speech
 import t2text
 import chatbot
 import dashboard
+import t2speechmuit
 app = FastAPI()
 
 @app.get('/')
@@ -25,3 +26,4 @@ app = gr.mount_gradio_app(app, demo, path='/vbot')
 
 app = gr.mount_gradio_app(app, chatbot.demo, path='/chatbot')
 app = gr.mount_gradio_app(app, dashboard.dashboard, path='/dashboard')
+app = gr.mount_gradio_app(app, t2speechmuit.demo, path='/t2speechmuit')
