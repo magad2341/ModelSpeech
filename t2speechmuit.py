@@ -146,7 +146,7 @@ with gr.Blocks() as demo:
                                     row_count=4,
 
                                     label="##       Models Table",
-                                     show_fullscreen_button=True,
+                                     # show_fullscreen_button=True,
                                     show_row_numbers=True,
                                     # column_widths=[30,80,20],
                                   #  show_label=False
