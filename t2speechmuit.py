@@ -1,5 +1,9 @@
 import gradio as gr
 from gradio_client import Client
+iconlink='<svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"></path></svg>'
+iconview='<svg class="mud-icon-root mud-svg-icon mud-icon-size-medium" focusable="false" viewBox="0 0 24 24" aria-hidden="true" role="img"><!--!--><path d="M0 0h24v24H0z" fill="none"></path><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"></path></svg>'
+def herficon(href,icon="",classicon="",style="height:20px"):
+  return f'<a href="{href}" style={style} class="mud-button-root mud-icon-button mud-success-text hover:mud-success-hover mud-ripple mud-ripple-icon" >{icon}</a>'
 def generate_table():
     models_data = [
         {"name": "Model 1", "audio": "https://wasmdashai-runtasking.hf.space/file=/tmp/gradio/50f8c04962e405b10912113a3f374b76065d0a2adaf6c14bef6030d5a214cebc/audio.wav", "link": "https://example.com/model1"},
