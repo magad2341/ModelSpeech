@@ -9,6 +9,7 @@ import chatbot
 import dashboard
 import t2speechmuit
 import userspace
+from ui import dash
 app = FastAPI()
 
 @app.get('/')
@@ -23,7 +24,7 @@ app = gr.mount_gradio_app(app, t2speech.demo, path='/t2speech')
 
 app = gr.mount_gradio_app(app, t2text.demo, path='/studio-t2text')
 
-app = gr.mount_gradio_app(app, demo, path='/vbot')
+app = gr.mount_gradio_app(app, dash.demo, path='/dash')
 
 app = gr.mount_gradio_app(app, chatbot.demo, path='/chatbot')
 app = gr.mount_gradio_app(app, dashboard.dashboard, path='/dashboard')
