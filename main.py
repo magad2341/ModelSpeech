@@ -14,7 +14,7 @@ app = FastAPI()
 
 @app.get('/')
 async def root():
-    return 'Gradio app is running at /gradio', 200
+    return '/gradio', 200
 @app.get("/redirect")
 async def redirect_to_site():
     # إعادة التوجيه إلى موقع معين
