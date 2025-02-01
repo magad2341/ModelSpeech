@@ -10,6 +10,7 @@ import dashboard
 import t2speechmuit
 import userspace
 from ui import dash
+import audio_interface
 app = FastAPI()
 
 @app.get('/')
@@ -30,3 +31,5 @@ app = gr.mount_gradio_app(app, chatbot.demo, path='/chatbot')
 app = gr.mount_gradio_app(app, dashboard.dashboard, path='/dashboard')
 app = gr.mount_gradio_app(app, t2speechmuit.demo, path='/t2speechmuit')
 app = gr.mount_gradio_app(app, userspace.app, path='/createspace')
+
+app = gr.mount_gradio_app(app, audio_interface.demo, path='/manger-audio')
