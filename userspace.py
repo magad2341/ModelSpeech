@@ -1,97 +1,65 @@
 import gradio as gr
-from  gradio_client import Client
-def duplicate_space(space_id, duplicate_name, private, hardware, sdk_version):
-    try:
-        # إنشاء العميل
-        client = Client(space_id)
+from gradio_client import Client
+Style = """
+    <style>
+      :root {
+    --name: default;
 
-        # تنفيذ عملية الاستنساخ
+    --primary-500: rgba(11, 186, 131, 1);
+    }
+    """
+# دالة استنساخ المساحة
+def duplicate_space(space_id, name, description, ram, cpu_cores, disk_space, is_gpu, is_global, bandwidth):
+    try:
+        client = Client(space_id)
         response = client.duplicate(
-            duplicate_name=duplicate_name,
-            private=private,
-            hardware=hardware,
-            sdk_version=sdk_version
+            duplicate_name=name,
+            private=not is_global,  # إذا كانت عالمية، فهي ليست خاصة
+            hardware="t4-small" if is_gpu else "cpu-basic",  # اختيار العتاد حسب وجود GPU
+            sdk_version="latest"
         )
         return response
     except Exception as e:
         return f"Error duplicating space: {str(e)}"
 
-def  get_TypePlan():
-    return ["Free","Paid"]
+# دالة لإنشاء المساحة مع البيانات الجديدة
+def add_space(id, name, description, ram, cpu_cores, disk_space, is_gpu, is_global, bandwidth):
+    if not id.strip() or not name.strip():
+        return "Error: ID and Name are required."
 
+    result = duplicate_space(id, name, description, ram, cpu_cores, disk_space, is_gpu, is_global, bandwidth)
+    return str(result)
 
-def get_hardware():
-    return ['cpu-basic', 'cpu-upgrade', 't4-small', 't4-medium', 'a10g-small', 'a10g-large', 'a100-large']
-
-def get_sdk_version():
-    return ["latest"]
-
-
-def get_private():
-    return [True,False]
-
-def get_sizeRam():
-   return {
-    "minimum": 1,
-    "maximum": 64,
-    "step": 1,
-    "label": "RAM Size (GB)",
-    "value": 2
-}
-
-def get_sizeStorage():
-   return {
-    "minimum": 5,
-    "maximum": 500,
-    "step": 5,
-    "label": "Storage Size (GB)",
-    "value": 5
-}
-
-def add_space(token, space_name, plan_type, hardware_type, ram_size, storage_size, gpu_enabled):
-     res=duplicate_space(token, space_name, get_private()[plan_type=="Paid"], hardware_type, get_sdk_version()[0])
-
-
-     return str(res)
-
-
-with gr.Blocks() as app:
-    gr.Markdown("# Add New Hugging Face Space")
-    gr.Markdown("Use this interface to add a new Space with customizable specifications.")
+# بناء واجهة Gradio
+with gr.Blocks(theme="soft") as app:
+    gr.HTML(Style)
+    gr.Markdown("# Add New LAJHA Space")
+    gr.Markdown("Fill in the details below to create a new space.")
 
     with gr.Row():
-        username = gr.Textbox(label="Username", placeholder="Enter your username")
-        space_name = gr.Textbox(label="Space Name", placeholder="Enter a name for your Space")
+        id_input = gr.Textbox(label="ID", placeholder="Enter Space ID")
+        name_input = gr.Textbox(label="Name", placeholder="Enter Space Name")
+
+    description_input = gr.Textbox(label="Description", placeholder="Enter a short description", lines=2)
 
     with gr.Row():
-        choices=get_TypePlan()
-        plan_type = gr.Radio(
-            choices=choices,
-            label="Plan Type",
-            value=choices[0],
-            interactive=True
-        )
+        ram_input = gr.Slider(minimum=1, maximum=64, step=1, label="RAM (GB)", value=8)
+        cpu_cores_input = gr.Slider(minimum=1, maximum=32, step=1, label="CPU Cores", value=4)
 
     with gr.Row():
-        choices=get_hardware()
-        hardware_type = gr.Dropdown(
-            choices=choices,
-            label="Hardware Type",
-            value=choices[0]
-        )
-        ram_size = gr.Slider(
-           **get_sizeRam()
-        )
-        storage_size = gr.Slider(
-           **get_sizeStorage()
-        )
-        gpu_enabled = gr.Checkbox(label="Enable GPU", value=False)
+        disk_space_input = gr.Slider(minimum=5, maximum=500, step=5, label="Disk Space (GB)", value=50)
+        bandwidth_input = gr.Slider(minimum=10, maximum=1000, step=10, label="Bandwidth (Mbps)", value=100)
+
+    with gr.Row():
+        is_gpu_input = gr.Checkbox(label="Enable GPU", value=False)
+        is_global_input = gr.Checkbox(label="Global Access", value=True)
 
     submit_button = gr.Button("Create Space")
     output = gr.Textbox(label="Result")
 
     submit_button.click(
         fn=add_space,
-        inputs=[username, space_name, plan_type, hardware_type, ram_size, storage_size, gpu_enabled],
+        inputs=[id_input, name_input, description_input, ram_input, cpu_cores_input, disk_space_input, is_gpu_input, is_global_input, bandwidth_input],
         outputs=output
     )
+
